@@ -1,20 +1,70 @@
-     //ADD CURRENT DATE AT THE TOP OF THE PAGE
+    //Declare variables for each row
+        var hour9 =$("#9");
+        var hour10 =$("#10");
+        var hour11 =$("#11");
+        var hour12 =$("#12");
+        var hour1 =$("#13");
+        var hour2 =$("#14");
+        var hour3 =$("#15");
+        var hour4 =$("#16");
+        var time = moment();
+    //ADD CURRENT DATE AT THE TOP OF THE PAGE
 
     //set variable to the current day. Formatting info found at https://momentjs.com/docs/
-    var currentDay = moment().format("dddd, MMMM Do YYYY, h:mm:ss a");
-    //set the text of the p tag as the current day
-    $("#currentDay").text(currentDay);
+    // var currentDay = moment().format("dddd, MMMM Do YYYY, h:mm:ss a");
+    // $("#currentDay").text(currentDay);
 
 
-    var hour9 =$("#9");
-    var hour10 =$("#10");
-    var hour10 =$("#11");
-    var hour10 =$("#12");
-    var hour10 =$("#13");
-    var hour10 =$("#14");
-    var hour10 =$("#15");
-    var hour10 =$("#16");
-    var time = moment();
+    function updatePlanner() {
+
+    $("#currentDay").text(moment().format("dddd, MMMM Do YYYY, h:mm:ss a"));
+
+
+    $(".time-block").each(function (){
+        var id =$(this).attr("id");
+        var schedule = localStorage.getItem(id);
+
+        if (schedule !== null){
+            $(this).children(".schedule").val(schedule);
+
+        }
+
+    });
+
+    }
+    updatePlanner();
+
+    var saveBtn =$(".savBtn");
+
+
+    saveBtn.on("click", function(){
+        var time = $(this).parent().attr("id");
+        var schedule =$(this).siblings(".schedule").val();
+
+        localStorage.setItem(time, schedule);
+    });
+
+
+    function pastPresentFuture() {
+        hour = time.hours();
+        $(".time-block").each(function () {
+            var thisHour = parseInt($(this).attr("id"));
+    
+            if (thisHour > hour) {
+                $(this).addClass("future")
+            }
+            else if (thisHour === hour) {
+                $(this).addClass("present");
+            }
+            else {
+                $(this).addClass("past");
+            }
+        })
+    }
+    
+    pastPresentFuture();
+
+    
 
 //     var saveItemsBtn =document.querySelector('saveBtn');
 //     var textReceived =document.querySelector('.text');
