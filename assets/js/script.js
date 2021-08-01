@@ -15,10 +15,12 @@
     // $("#currentDay").text(currentDay);
 
 
-    function updatePlanner() {
+    function setPlanner() {
 
     $("#currentDay").text(moment().format("dddd, MMMM Do YYYY, h:mm:ss a"));
 
+
+    // this will store the data from the textarea into localStorage
 
     $(".time-block").each(function (){
         var id =$(this).attr("id");
@@ -32,12 +34,14 @@
     });
 
     }
-    updatePlanner();
+    setPlanner();
 
-    var saveBtn =$(".savBtn");
+    var saveBtn =$(".saveBtn");
 
 
-    saveBtn.on("click", function(){
+    saveBtn.on("click", function(event){
+        event.preventDefault();
+
         var time = $(this).parent().attr("id");
         var schedule =$(this).siblings(".schedule").val();
 
@@ -46,7 +50,7 @@
 
 
     function pastPresentFuture() {
-        hour = time.hours();
+        hour = time.hour();
         $(".time-block").each(function () {
             var thisHour = parseInt($(this).attr("id"));
     
