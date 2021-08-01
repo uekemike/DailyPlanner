@@ -5,3 +5,16 @@
     //set the text of the p tag as the current day
     $("#currentDay").text(currentDay);
 
+    var saveItemsBtn =document.querySelector('saveBtn');
+    var textReceived =document.querySelector('.text');
+    
+    textReceived.value =localStorage.getItem('content');
+
+   function savedPlanner(){
+       //use local storage to save get infor from planner and save
+       localStorage.setItem('content', textReceived.value);
+
+   };
+
+    saveItemsBtn.addEventListener("click", savedPlanner);
+
